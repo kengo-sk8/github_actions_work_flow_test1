@@ -1,11 +1,30 @@
-name: Deploy test
+name: Actions Workflow 3
+run-name: |
+  Workflow triggered by ${{ github.actor }} 🚀
 
 on:
   workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Branch name'
+        required: true
+        type: choice
+        options:
+          - main 
+
+      environment_name:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+          - production
 
 jobs:
-  dummy:
-    if: ${{ false }}
+  show-received-message:
     runs-on: ubuntu-latest
     steps:
-      - run: ""
+      - name: Show workflow triggered message
+        run: |
+          echo "actions_workflow3.yml が動作しました"
+          echo "受け取ったブランチ名: ${{ github.event.inputs.branch_name }}"
+          echo "受け取った環境名: ${{ github.event.inputs.environment_name }}"          
